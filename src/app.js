@@ -2,6 +2,7 @@ const express = require('express');
 const { httpLogger } = require('./middlewares');
 const { logger, enableCORS } = require('./utils');
 const path = require('path');
+const userRoute = require('./routes/User');
 
 const filepath = `${path.dirname(__filename)}\ ${path.basename(__filename)}`;
 
@@ -10,10 +11,9 @@ const app = express();
 
 app.use(httpLogger);
 app.use(enableCORS);
+app.use(express.json());
 
-app.get('/user', (req, res) => {
-    res.send('Hello from user endpoint!');
-  });
+app.use('/user', userRoute);
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
