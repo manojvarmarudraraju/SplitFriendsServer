@@ -1,6 +1,6 @@
 const groupModel = require('../schema/groups');
 const mongoose = require('../MongoConnection');
-const {addGroupUser} = require('../user');
+const {addGroupUser, userGroups} = require('../user');
 
 async function groupData(group){
     try{
@@ -109,27 +109,32 @@ async function addExpense(group, expense){
     }
 }
 
-async function addGroup(data){
-    var {name, admin, members} = data;
+async function addGroup(data, user){
+    var {name, members} = data;
     try{
-        var result = await groupModel.create({name, admin, members, expenses: []});
+        await groupModel.create({name, admin: user, members, expenses: []});
         await addGroupUser(result["_id"], [admin, ...members]);
+        var result = await listGroups(user);
         return result;
     } catch(err){
         throw err;
     }
 }
 
-async function listGroups(groups, user){
+async function listGroups(user){
     var result = {};
     try{
+        var groups = await userGroups(user);
+        console.log(groups);
         for(group in groups){
             if(!(group in result)){
                 result[group] = {};
             }
 
             var group_det = await groupModel.findById(group, {  name: 1, admin: 1});
+            console.log(group_det);
             var debts = await calculateDebts(group, user);
+            console.log(debts);
             result[group] = {...group_det,debts};
         }
         var final = [];

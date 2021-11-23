@@ -3,6 +3,7 @@ const { httpLogger } = require('./middlewares');
 const { logger, enableCORS } = require('./utils');
 const path = require('path');
 const userRoute = require('./routes/User');
+const groupRoute = require('./routes/Group');
 
 const filepath = `${path.dirname(__filename)}\ ${path.basename(__filename)}`;
 
@@ -14,6 +15,8 @@ app.use(enableCORS);
 app.use(express.json());
 
 app.use('/user', userRoute);
+
+app.use('/group', groupRoute);
 
 app.get('/', (req, res) => {
   res.send('Hello World!');

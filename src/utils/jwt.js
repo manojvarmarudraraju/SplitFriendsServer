@@ -15,22 +15,13 @@ const verifyJWT = (req,res) => {
     if(!req.headers.authorization) {
         throw new Error('No token included');
     }
-    // var errFinal = null;
-    // jwt.verify(token,SECRET_KEY,(err, data) => {
-    //     if(err){
-    //         errFinal = err;
-    //     } else{
-    //         req.body.user = data;
-    //     }
-    // });
-    // if(errFinal){
-    //     throw errFinal;
-    // }
-
+    console.log("Header");
+    var token = req.headers.authorization.split(' ')[1];
     try{
         var data = jwt.verify(token, SECRET_KEY);
         req.body.user = data;
     } catch(err){
+        console.log(err);
         throw err;
     }
 }
