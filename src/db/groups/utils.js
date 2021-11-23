@@ -47,25 +47,37 @@ async function settleDebts(group, lend, borrow, money, everything = false) {
         const group_vals = await groupData(group);
         var {expenses} = group_vals;
         expenses.sort((a, b) => a.timestamp - b.timestamp);
-        for(var expense in expenses){
-            for(var exp in expense){
-                var { lender, borrower, is_settled, amount, is_deleted} = exp;
-                if(!is_deleted && !is_settled && lend === lender && borrower === borrow){
-                    if(amount <= money){
-                        exp.amount = 0;
-                        exp.is_settled = true;
-                        money -= amount;
-                    } else{
-                        exp.amount -= money;
-                        money = 0;
-                    }
-                    if(money === 0){
-                        break;
+        if(!everything){    
+            for(var expense in expenses){
+                for(var exp in expense){
+                    var { lender, borrower, is_settled, amount, is_deleted} = exp;
+                    if(!is_deleted && !is_settled && lend === lender && borrower === borrow){
+                        if(amount <= money){
+                            exp.amount = 0;
+                            exp.is_settled = true;
+                            money -= amount;
+                        } else{
+                            exp.amount -= money;
+                            money = 0;
+                        }
+                        if(money === 0){
+                            break;
+                        }
                     }
                 }
+                if(money === 0){
+                    break;
+                }
             }
-            if(money === 0){
-                break;
+        } else{
+            for(var expense in expenses){
+                for(var exp in expense){
+                    var { lender, borrower, is_settled, amount, is_deleted} = exp;
+                    if(!is_deleted && !is_settled && lend === lender && borrower === borrow){
+                        exp.amount = 0;
+                        exp.is_settled = true;
+                    }
+                }
             }
         }
         var results = await groupModel.findByIdAndUpdate(group, {expenses});
@@ -82,9 +94,12 @@ async function addExpense(group, expense){
         const group_vals = await groupData(group);
 
         expense["_id"] = new mongoose.Types.ObjectId();
+        for(item in expense){
+            item["ori_amount"] = item["amount"];
+        }
         var { expenses } = group_vals;
         
-        var new_expenses = [expense, ...expenses, ];
+        var new_expenses = [expense, ...expenses ];
 
         var results = groupModel.getByIdAndUpdate(group, {expenses: new_expenses});
 
