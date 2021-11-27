@@ -11,7 +11,8 @@ userRoute.post("/login", async function(req, res){
     var data = req.body;
     try{
         var user = await loginUser(data);
-        var token =createJWT(user);
+        console.log(user);
+        var token =createJWT(user.user);
         console.log("No error in token");
         return res.status(200).json({token,user});
     } catch(err){
