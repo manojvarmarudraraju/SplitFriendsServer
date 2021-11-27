@@ -35,9 +35,11 @@ async function addGroupUser(group, members){
 }
 async function userGroups(user){
     try{
-        var val = userModel.findById(user, {groups: 1});
-        return val;
+        var val =await userModel.findById(user, {groups: 1});
+        console.log("value", val.groups);
+        return val.groups;
     } catch(err){
+        console.log("Error in userGroups");
         throw err;
     }
 }
