@@ -8,7 +8,14 @@ async function loginUser(user){
     const { email, password } = user;
     try{
         result = await userModel.findOne({email, password});
-        return result;
+        if(result.length === 0){
+            throw new Error('User not found');
+        }
+        var users = await userModel.find({});
+        var out = {};
+        out.user = result;
+        out.users = users;
+        return out;
     } catch(err){
         throw err;
     }  

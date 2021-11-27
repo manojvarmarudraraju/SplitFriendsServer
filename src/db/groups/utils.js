@@ -110,7 +110,7 @@ async function addExpense(group, expense){
 }
 
 async function addGroup(data, user){
-    var {name, members, admin} = data;
+    var {name, members, user} = data;
     try{
         await groupModel.create({name, admin: user, members, expenses: []});
         await addGroupUser(result["_id"], [admin, ...members]);
