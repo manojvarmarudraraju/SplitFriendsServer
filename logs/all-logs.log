@@ -171,3 +171,5 @@
 2021-11-26 21:19:31:1931 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
 2021-11-26 21:47:24:4724 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
 2021-11-26 21:59:20:5920 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
+2021-11-27 12:29:01:291 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src app.js Server listening on port 8080
+2021-11-27 12:29:02:292 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
