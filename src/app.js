@@ -4,6 +4,7 @@ const { logger, enableCORS } = require('./utils');
 const path = require('path');
 const userRoute = require('./routes/User');
 const groupRoute = require('./routes/Group');
+var cors = require('cors')
 
 const filepath = `${path.dirname(__filename)}\ ${path.basename(__filename)}`;
 
@@ -11,7 +12,7 @@ const PORT = 8080;
 const app = express();
 
 app.use(httpLogger);
-app.use(enableCORS);
+app.use(cors());
 app.use(express.json());
 
 app.use('/user', userRoute);
