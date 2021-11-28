@@ -35,7 +35,9 @@ async function registerUser(user){
 
 async function addGroupUser(group, members){
     try{
-        await userModel.updateMany({ "_id": { "$in": members }}, {groups: group});
+        var results =await userModel.updateMany({"_id": { "$in": members }}, {"$push": {"groups": group.toString()}});
+        console.log(results);
+        // await userModel.updateMany({ "_id": { "$in": members }}, {"$push": { "members": [group]}});
     } catch(err){
         throw err
     }

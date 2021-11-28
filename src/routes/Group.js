@@ -1,7 +1,7 @@
 var groupRoute = require('express').Router();
 var { logger } = require('../utils');
 var { verifyJWT } = require('../utils/jwt');
-var { groupData, listGroups, calculateDebts, addExpense  } = require('../db/groups/utils')
+var { groupData, listGroups, calculateDebts, addExpense , addGroup } = require('../db/groups/utils')
 
 
 groupRoute.use((req,res,next) => {
@@ -42,10 +42,11 @@ groupRoute.get("/:groupId", async (req, res) => {
 });
 
 groupRoute.put("/new", async(req, res) => {
-    var { body } = req.body;
+    var { body } = req;
     var id = req.body.user.user["_id"];
+    console.log(id);
     try{
-        var result = await addGroup(data, id);
+        var result = await addGroup(body, id);
         return res.status(200).json(result);
     } catch (err) {
         return res.status(500).json({error: err});

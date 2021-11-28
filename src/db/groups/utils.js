@@ -109,14 +109,18 @@ async function addExpense(group, expense){
     }
 }
 
-async function addGroup(data, user){
-    var {name, members, user} = data;
+async function addGroup(data, id){
+    console.log("tetetete:",id);
+    var {name, members} = data;
+    console.log(name,members);
     try{
-        await groupModel.create({name, admin: user, members, expenses: []});
-        await addGroupUser(result["_id"], [admin, ...members]);
-        var result = await listGroups(user);
+        var result = await groupModel.create({name, admin: id, members, expenses: []});
+        console.log(result);
+        await addGroupUser(result["_id"], [id, ...members]);
+        var result = await listGroups(id);
         return result;
     } catch(err){
+        console.log(err);
         throw err;
     }
 }

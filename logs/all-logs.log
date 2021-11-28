@@ -187,3 +187,72 @@
 2021-11-27 16:56:45:5645 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src app.js Server listening on port 8080
 2021-11-27 16:56:46:5646 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
 2021-11-27 16:56:47:5647 info: POST /user/login 200 132.211 ms - 1205
+2021-11-27 20:20:39:2039 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src app.js Server listening on port 8080
+2021-11-27 20:20:39:2039 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
+2021-11-27 20:21:26:2126 info: PUT /group/new 500 70.361 ms - 12
+2021-11-27 20:24:08:248 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src app.js Server listening on port 8080
+2021-11-27 20:24:09:249 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
+2021-11-27 20:24:15:2415 info: PUT /group/new 500 32.016 ms - 12
+2021-11-27 20:25:00:250 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src app.js Server listening on port 8080
+2021-11-27 20:25:01:251 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
+2021-11-27 20:25:03:253 info: PUT /group/new 500 37.536 ms - 12
+2021-11-27 20:25:18:2518 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src app.js Server listening on port 8080
+2021-11-27 20:25:18:2518 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
+2021-11-27 20:25:20:2520 info: PUT /group/new 500 34.572 ms - 12
+2021-11-27 20:25:32:2532 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src app.js Server listening on port 8080
+2021-11-27 20:25:33:2533 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
+2021-11-27 20:25:35:2535 info: PUT /group/new 500 23.507 ms - 12
+2021-11-27 20:26:29:2629 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src app.js Server listening on port 8080
+2021-11-27 20:26:29:2629 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
+2021-11-27 20:27:13:2713 info: PUT /group/new 500 69.145 ms - 12
+2021-11-27 20:28:03:283 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src app.js Server listening on port 8080
+2021-11-27 20:28:04:284 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
+2021-11-27 20:28:07:287 info: PUT /group/new 500 104.381 ms - 1186
+2021-11-27 20:29:57:2957 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src app.js Server listening on port 8080
+2021-11-27 20:29:57:2957 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
+2021-11-27 20:31:20:3120 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src app.js Server listening on port 8080
+2021-11-27 20:31:21:3121 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
+2021-11-27 20:31:28:3128 info: PUT /group/new 500 83.870 ms - 1186
+2021-11-27 20:31:58:3158 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src app.js Server listening on port 8080
+2021-11-27 20:31:59:3159 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
+2021-11-27 20:32:03:323 info: PUT /group/new 500 122.752 ms - 1186
+2021-11-27 20:33:17:3317 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src app.js Server listening on port 8080
+2021-11-27 20:33:17:3317 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
+2021-11-27 20:33:20:3320 info: PUT /group/new 500 121.489 ms - 1186
+2021-11-27 20:33:56:3356 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src app.js Server listening on port 8080
+2021-11-27 20:33:57:3357 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
+2021-11-27 20:33:59:3359 info: PUT /group/new 500 34.588 ms - 12
+2021-11-27 20:41:46:4146 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src app.js Server listening on port 8080
+2021-11-27 20:41:47:4147 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
+2021-11-27 20:41:50:4150 info: PUT /group/new 500 47.936 ms - 12
+2021-11-27 20:44:31:4431 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src app.js Server listening on port 8080
+2021-11-27 20:44:32:4432 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
+2021-11-27 20:44:35:4435 info: PUT /group/new 500 45.065 ms - 12
+2021-11-27 20:45:09:459 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src app.js Server listening on port 8080
+2021-11-27 20:45:10:4510 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
+2021-11-27 20:45:14:4514 info: PUT /group/new 500 22.790 ms - 12
+2021-11-27 20:46:27:4627 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src app.js Server listening on port 8080
+2021-11-27 20:46:27:4627 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
+2021-11-27 20:49:02:492 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src app.js Server listening on port 8080
+2021-11-27 20:49:02:492 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
+2021-11-27 20:49:04:494 info: PUT /group/new 500 161.103 ms - 12
+2021-11-27 20:49:25:4925 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src app.js Server listening on port 8080
+2021-11-27 20:49:25:4925 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
+2021-11-27 20:49:34:4934 info: PUT /group/new 500 202.868 ms - 93
+2021-11-27 20:50:16:5016 info: PUT /group/new 500 151.560 ms - 12
+2021-11-27 20:51:34:5134 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src app.js Server listening on port 8080
+2021-11-27 20:51:35:5135 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
+2021-11-27 20:51:57:5157 info: PUT /group/new 200 561.585 ms - 2
+2021-11-27 20:54:43:5443 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src app.js Server listening on port 8080
+2021-11-27 20:54:50:5450 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
+2021-11-27 20:55:01:551 info: PUT /group/new 500 286.561 ms - 174
+2021-11-27 20:58:33:5833 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src app.js Server listening on port 8080
+2021-11-27 20:58:39:5839 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
+2021-11-27 20:59:26:5926 info: PUT /group/new 500 406.085 ms - 12
+2021-11-27 21:00:24:024 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src app.js Server listening on port 8080
+2021-11-27 21:00:24:024 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
+2021-11-27 21:00:27:027 info: PUT /group/new 500 148.308 ms - 93
+2021-11-27 21:00:45:045 info: PUT /group/new 500 73.594 ms - 12
+2021-11-27 21:01:13:113 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src app.js Server listening on port 8080
+2021-11-27 21:01:13:113 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
+2021-11-27 21:01:32:132 info: PUT /group/new 200 497.482 ms - 71
