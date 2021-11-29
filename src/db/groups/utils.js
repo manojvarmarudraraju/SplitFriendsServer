@@ -1,6 +1,7 @@
 const groupModel = require('../schema/groups');
 const mongoose = require('../MongoConnection');
 const {addGroupUser, userGroups} = require('../user');
+const { addActivity } = require('../activity');
 
 async function groupData(group){
     try{
@@ -18,9 +19,14 @@ async function calculateDebts(groupID,userID){
 
         var users = {};
 
+        var monthExp = {};
+        var weekExp = {};
+
         for(var expense in expenses){
+            var funder = none;
             for(var exp in expense){
                 var { lender, borrower, is_settled, amount, is_deleted} = exp;
+                funder = lender;
                 if(!is_deleted && !is_settled && lender === userID && borrower !== userID){
                     if(!(borrower in users)){
                         users[borrower] = 0;
@@ -34,9 +40,25 @@ async function calculateDebts(groupID,userID){
                     users[lender] -= amount;
                 }
             }
+            
+            if(expense["timestamp"] >= Date.now() - 604800000){
+                if(!(funder in weekExp)){
+                    weekExp[funder] = 0;
+                }
+                weekExp[funder] += expense["ori_amount"];
+            }
+            if(expense["timestamp"] >= Date.now() - 2419200000){
+                if(!(funder in monthExp)){
+                    monthExp[funder] = 0;
+                }
+                monthExp[funder] += expense["ori_amount"];
+            }
+            
         }
 
-        return users;
+        var out = {debts: users, weekExp, monthExp}
+
+        return out;
     } catch(e) {
         throw e;
     }
@@ -97,12 +119,18 @@ async function addExpense(group, expense){
         for(item in expense){
             item["ori_amount"] = item["amount"];
         }
+        var date = new Date();
+        var year = date.getFullYear();
+        var month = date.getMonth();
+        var dt = date.getDate();
+        expense["timestamp"] = Date.now();
+        expense["date"] = dt.toString()+"-"+month.toString()+"-"+year.toString();
         var { expenses } = group_vals;
         
         var new_expenses = [expense, ...expenses ];
 
-        var results = groupModel.getByIdAndUpdate(group, {expenses: new_expenses});
-
+        await groupModel.getByIdAndUpdate(group, {expenses: new_expenses});
+        var results = await groupModel.getById(group);
         return results;
     } catch(err) {
         throw err;
@@ -115,9 +143,8 @@ async function addGroup(data, id){
     console.log(name,members);
     try{
         var result = await groupModel.create({name, admin: id, members, expenses: []});
-        console.log(result);
         await addGroupUser(result["_id"], [id, ...members]);
-        var result = await listGroups(id);
+        result = await listGroups(id);
         return result;
     } catch(err){
         console.log(err);

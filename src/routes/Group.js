@@ -1,7 +1,8 @@
 var groupRoute = require('express').Router();
 var { logger } = require('../utils');
 var { verifyJWT } = require('../utils/jwt');
-var { groupData, listGroups, calculateDebts, addExpense , addGroup } = require('../db/groups/utils')
+var { groupData, listGroups, calculateDebts, addExpense , addGroup } = require('../db/groups/utils');
+var {addActivity} =  require('../db/activity');
 
 
 groupRoute.use((req,res,next) => {
@@ -34,7 +35,6 @@ groupRoute.get("/:groupId", async (req, res) => {
         var result = await groupData(groupId);
         console.log("group data");
         var debts = await calculateDebts(groupId, id);
-        console.log("calculateDebts");
         return res.status(200).json({ data: result, debts});
     } catch(err){
         return res.status(500).json({error: err});
@@ -44,21 +44,30 @@ groupRoute.get("/:groupId", async (req, res) => {
 groupRoute.put("/new", async(req, res) => {
     var { body } = req;
     var id = req.body.user.user["_id"];
+    var name = req.body.user.user["displayName"];
+    var { name } = body;
     console.log(id);
     try{
         var result = await addGroup(body, id);
+        var val = "You created the "+name+" group";
+        await addActivity(id, val);
         return res.status(200).json(result);
     } catch (err) {
         return res.status(500).json({error: err});
     }
 })
 
+
+
 groupRoute.put("/expense/:groupId/", async (req, res) => {
     var { groupId } = req.params;
     var id = req.body.user.user["_id"];
     var { expense } = req.body;
+    var { username, amount} = expense;
     try{
         var result = await addExpense(groupId, expense);
+        var val = "You added an expense of $" + amount;
+        await addActivity(id, val);
         var debts = await calculateDebts(groupId, id);
         return res.status(200).json({ data: result, debts});
     } catch(err){
@@ -68,8 +77,11 @@ groupRoute.put("/expense/:groupId/", async (req, res) => {
 
 groupRoute.delete("/:groupId", async function(req, res){
     var { groupId } = req.params;
+    var { name} = req.body;
     try{
         await deleteGroup(groupId);
+        var val = "You archived "+ name+" group";
+        await addActivity(id, val);
         return res.status(200).json({success: true});
     } catch(err){
         return res.status(500).json({error: err});
@@ -99,9 +111,11 @@ groupRoute.post("/:groupId/expense/:expenseId", async function(req, res){
 
 groupRoute.post("/:groupId/settle", async (req, res) => {
     var { groupId } = req.params;
-    var { lender, borrower, money, everything} = req.body;
+    var { lender, borrower, borrowerName, money, everything} = req.body;
     try{
         var results = await settleDebts(groupId, lender, borrower, money, everything);
+        var val = "You paid "+ username +" $" + amount;
+        await addActivity(id, val);
         return res.status(200).json(results);
     } catch(err){
         return res.status(500).json({error: err});
