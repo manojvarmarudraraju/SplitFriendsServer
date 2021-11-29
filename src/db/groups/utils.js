@@ -167,7 +167,7 @@ async function listGroups(user){
             var debts = await calculateDebts(group, user);
             console.log(debts);
             var {name, admin} = group_det;
-            result[group] = {name, admin, debts};
+            result[group] = {"_id": group, name, admin, debts};
         }
         console.log(result);
         var final = [];
