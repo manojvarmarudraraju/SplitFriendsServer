@@ -1098,3 +1098,6 @@
 2021-11-28 18:26:01:261 info: /Users/h4rz/personal/development/react/SplitFriendsServer/src/db MongoConnection.js Connected to Mongo
 2021-11-28 18:26:05:265 info: GET /group/data 200 951.624 ms - 796
 >>>>>>> refs/remotes/origin/main
+2021-11-28 23:00:40:040 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src app.js Server listening on port 8080
+2021-11-28 23:00:41:041 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
+2021-11-28 23:02:10:210 info: GET /activity/ 200 1243.321 ms - 312

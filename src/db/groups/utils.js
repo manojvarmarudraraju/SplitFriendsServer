@@ -23,8 +23,9 @@ async function calculateDebts(groupID,userID){
         var weekExp = {};
 
         for(var expense in expenses){
+            var { division } = expense;
             var funder = none;
-            for(var exp in expense){
+            for(var exp in division){
                 var { lender, borrower, is_settled, amount, is_deleted} = exp;
                 funder = lender;
                 if(!is_deleted && !is_settled && lender === userID && borrower !== userID){
@@ -71,7 +72,8 @@ async function settleDebts(group, lend, borrow, money, everything = false) {
         expenses.sort((a, b) => a.timestamp - b.timestamp);
         if(!everything){    
             for(var expense in expenses){
-                for(var exp in expense){
+                var {division} = expense;
+                for(var exp in division){
                     var { lender, borrower, is_settled, amount, is_deleted} = exp;
                     if(!is_deleted && !is_settled && lend === lender && borrower === borrow){
                         if(amount <= money){
