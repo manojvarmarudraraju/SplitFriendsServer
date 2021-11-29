@@ -62,8 +62,8 @@ groupRoute.put("/new", async(req, res) => {
 groupRoute.put("/expense/:groupId/", async (req, res) => {
     var { groupId } = req.params;
     var id = req.body.user.user["_id"];
-    var { expense } = req.body;
-    var { username, amount} = expense;
+    var expense = req.body;
+    var { amount} = expense;
     try{
         var result = await addExpense(groupId, expense);
         var val = "You added an expense of $" + amount;
