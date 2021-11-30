@@ -77,7 +77,7 @@ groupRoute.put("/expense/:groupId/", async (req, res) => {
 
 groupRoute.delete("/:groupId", async function(req, res){
     var { groupId } = req.params;
-    var { name } = req.body;
+    var { groupName } = req.body;
     var id = req.body.user.user["_id"];
     try{
         await deleteGroup(groupId);
@@ -104,7 +104,6 @@ groupRoute.delete("/:groupId/expense/:expenseId", async function(req, res){
 
 groupRoute.post("/:groupId/expense/:expenseId", async function(req, res){
     var { groupId, expenseId } = req.params;
-    var { name } = req.body;
     try{
         await deleteExpense(groupId, expenseId);
         return res.status(200).json({success: true});
