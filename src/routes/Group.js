@@ -81,7 +81,7 @@ groupRoute.delete("/:groupId", async function(req, res){
     var id = req.body.user.user["_id"];
     try{
         await deleteGroup(groupId);
-        var val = "You archived "+ name+" group";
+        var val = "You archived "+ groupName+" group";
         await addActivity(id, val);
         return res.status(200).json({success: true});
     } catch(err){
