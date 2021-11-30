@@ -1,7 +1,7 @@
 var groupRoute = require('express').Router();
 var { logger } = require('../utils');
 var { verifyJWT } = require('../utils/jwt');
-var { groupData, listGroups, calculateDebts, addExpense , addGroup, deleteGroup } = require('../db/groups/utils');
+var { groupData, listGroups, calculateDebts, addExpense , addGroup, deleteGroup, deleteExpense } = require('../db/groups/utils');
 var {addActivity} =  require('../db/activity');
 
 
@@ -91,8 +91,11 @@ groupRoute.delete("/:groupId", async function(req, res){
 
 groupRoute.delete("/:groupId/expense/:expenseId", async function(req, res){
     var { groupId, expenseId } = req.params;
+    var { expenseName, groupName } = req.body;
     try{
         await deleteExpense(groupId, expenseId);
+        var val = "You archived "+ expenseName +" expense in "+ groupName +" group";
+        await addActivity(id, val);
         return res.status(200).json({success: true});
     } catch(err){
         return res.status(500).json({error: err});
@@ -100,10 +103,10 @@ groupRoute.delete("/:groupId/expense/:expenseId", async function(req, res){
 });
 
 groupRoute.post("/:groupId/expense/:expenseId", async function(req, res){
-    var { groupId } = req.params;
-    var { expense } = req.body;
+    var { groupId, expenseId } = req.params;
+    var { name } = req.body;
     try{
-        await deleteExpense(groupId, expense);
+        await deleteExpense(groupId, expenseId);
         return res.status(200).json({success: true});
     } catch(err){
         return res.status(500).json({error: err});

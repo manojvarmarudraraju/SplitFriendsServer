@@ -206,7 +206,8 @@ async function deleteGroup(group){
 async function deleteExpense(group, expense_id){
     try{
         const { expenses } = await groupData(group);
-        for(expense in expenses){
+        for(var i = 0; i < expenses.length; i++){
+            var expense  = expenses[i];
             if(expense["_id"] == expense_id){
                 expense["is_deleted"] = true;
             }

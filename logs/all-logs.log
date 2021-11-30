@@ -1208,3 +1208,9 @@
 2021-11-30 00:43:43:4343 info: DELETE /61a5b79875ba4f99c64aedac 404 20.113 ms - 166
 2021-11-30 00:44:17:4417 info: DELETE /group/61a5b79875ba4f99c64aedac 200 249.729 ms - 16
 2021-11-30 00:54:39:5439 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
+2021-11-30 15:36:13:3613 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src app.js Server listening on port 8080
+2021-11-30 15:36:14:3614 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
+2021-11-30 15:42:31:4231 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src app.js Server listening on port 8080
+2021-11-30 15:42:31:4231 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
+2021-11-30 15:43:13:4313 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src app.js Server listening on port 8080
+2021-11-30 15:43:13:4313 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
