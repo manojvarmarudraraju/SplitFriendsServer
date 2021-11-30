@@ -155,7 +155,7 @@ async function addGroup(data, id){
     var {name, members} = data;
     console.log(name,members);
     try{
-        var result = await groupModel.create({name, admin: id, members, expenses: []});
+        var result = await groupModel.create({name, admin: id, members, expenses: [],is_archived: false});
         await addGroupUser(result["_id"], [id, ...members]);
         result = await listGroups(id);
         return result;
@@ -175,12 +175,12 @@ async function listGroups(user){
                 result[group] = {};
             }
             console.log("group:",group);
-            var group_det = await groupModel.findById(group, {  name: 1, admin: 1});
+            var group_det = await groupModel.findById(group, {  name: 1, admin: 1,is_archived: 1});
             console.log(group_det);
             var debts = await calculateDebts(group, user);
             console.log(debts);
-            var {name, admin} = group_det;
-            result[group] = {"_id": group, name, admin, debts};
+            var {name, admin, is_archived} = group_det;
+            result[group] = {"_id": group, name, admin, debts,is_archived};
         }
         console.log(result);
         var final = [];
