@@ -1,7 +1,7 @@
 var groupRoute = require('express').Router();
 var { logger } = require('../utils');
 var { verifyJWT } = require('../utils/jwt');
-var { groupData, listGroups, calculateDebts, addExpense , addGroup } = require('../db/groups/utils');
+var { groupData, listGroups, calculateDebts, addExpense , addGroup, deleteGroup } = require('../db/groups/utils');
 var {addActivity} =  require('../db/activity');
 
 
