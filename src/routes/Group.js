@@ -77,7 +77,8 @@ groupRoute.put("/expense/:groupId/", async (req, res) => {
 
 groupRoute.delete("/:groupId", async function(req, res){
     var { groupId } = req.params;
-    var { name} = req.body;
+    var { name } = req.body;
+    var id = req.body.user.user["_id"];
     try{
         await deleteGroup(groupId);
         var val = "You archived "+ name+" group";
