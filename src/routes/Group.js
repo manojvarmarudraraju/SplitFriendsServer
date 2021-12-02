@@ -1,7 +1,7 @@
 var groupRoute = require('express').Router();
 var { logger } = require('../utils');
 var { verifyJWT } = require('../utils/jwt');
-var { groupData, listGroups, calculateDebts, addExpense , addGroup, deleteGroup, deleteExpense } = require('../db/groups/utils');
+var { groupData, listGroups, calculateDebts, addExpense , addGroup, deleteGroup, deleteExpense, settleDebts } = require('../db/groups/utils');
 var {addActivity} =  require('../db/activity');
 
 
@@ -114,7 +114,7 @@ groupRoute.post("/:groupId/expense/:expenseId", async function(req, res){
 
 groupRoute.post("/:groupId/settle", async (req, res) => {
     var { groupId } = req.params;
-    var { lender, borrower, borrowerName, money, everything} = req.body;
+    var { lender, borrower,username, money, everything} = req.body;
     try{
         var results = await settleDebts(groupId, lender, borrower, money, everything);
         var val = "You paid "+ username +" $" + amount;
