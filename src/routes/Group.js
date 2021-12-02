@@ -75,7 +75,7 @@ groupRoute.put("/expense/:groupId/", async (req, res) => {
     }
 });
 
-groupRoute.delete("/:groupId", async function(req, res){
+groupRoute.put("/:groupId", async function(req, res){
     var { groupId } = req.params;
     var { groupName } = req.body;
     var id = req.body.user.user["_id"];
@@ -89,7 +89,7 @@ groupRoute.delete("/:groupId", async function(req, res){
     }
 });
 
-groupRoute.delete("/:groupId/expense/:expenseId", async function(req, res){
+groupRoute.put("/:groupId/expense/:expenseId", async function(req, res){
     var { groupId, expenseId } = req.params;
     var { expenseName, groupName } = req.body;
     try{
