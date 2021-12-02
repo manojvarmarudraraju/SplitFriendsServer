@@ -212,7 +212,7 @@ async function deleteExpense(group, expense_id){
                 expense["is_deleted"] = true;
             }
         }
-        await groupModel.getByIdAndUpdate(group, { expenses });
+        await groupModel.findByIdAndUpdate(group, { expenses });
         return;
     } catch(err){
         throw err;

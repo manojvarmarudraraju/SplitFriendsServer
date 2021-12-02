@@ -92,12 +92,14 @@ groupRoute.put("/:groupId", async function(req, res){
 groupRoute.put("/:groupId/expense/:expenseId", async function(req, res){
     var { groupId, expenseId } = req.params;
     var { expenseName, groupName } = req.body;
+    var id = req.body.user.user["_id"];
     try{
         await deleteExpense(groupId, expenseId);
         var val = "You archived "+ expenseName +" expense in "+ groupName +" group";
         await addActivity(id, val);
         return res.status(200).json({success: true});
     } catch(err){
+        console.log(err);
         return res.status(500).json({error: err});
     }
 });
