@@ -15,6 +15,7 @@ async function groupData(group){
 async function calculateDebts(groupID,userID){
     try{
         const group = await groupData(groupID);
+        console.log(group);
         var {expenses} = group;
 
         var users = {};
@@ -151,11 +152,21 @@ async function addExpense(group, expense){
 }
 
 async function addGroup(data, id){
-    console.log("tetetete:",id);
     var {name, members} = data;
-    console.log(name,members);
+    var connections = {};
+    for(var i = 0; i < members.length; i++){
+        for(var j = 0; j < members[i].length; j++){
+            if(i !== j){
+                if(!(members[i] in connections)){
+                    connections[members[i]] = {};
+                }
+                connections[members[i]][members[j]] = 0;
+            }
+        }
+    };
+
     try{
-        var result = await groupModel.create({name, admin: id, members, expenses: [],is_archived: false});
+        var result = await groupModel.create({name, admin: id, members, expenses: [],is_archived: false, connections});
         await addGroupUser(result["_id"], [id, ...members]);
         result = await listGroups(id);
         return result;

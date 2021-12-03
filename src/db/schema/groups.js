@@ -5,7 +5,8 @@ const groupSchema = new mongoose.Schema({
     admin: { type: String, required: true},
     members: {type: Array, required: true},
     expenses: {type: Array, required: true},
-    is_archived: {type: Boolean, required: true, default: false}
+    is_archived: {type: Boolean, required: true, default: false},
+    connections: {type: Object, required: true}
 })
 
 const groupModel = mongoose.model('group', groupSchema);
