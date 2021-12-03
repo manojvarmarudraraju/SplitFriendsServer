@@ -34,13 +34,13 @@ async function calculateDebts(groupID,userID){
                     if(!(borrower in users)){
                         users[borrower] = 0;
                     }
-                    users[borrower] -= amount;
+                    users[borrower] += amount;
                 }
                 if(!is_deleted && !is_settled && lender !== userID && borrower === userID){
                     if(!(lender in users)){
                         users[lender] = 0;
                     }
-                    users[lender] += amount;
+                    users[lender] -= amount;
                 }
                 if(!is_deleted){
                     if(time >= Date.now() - 604800000){
