@@ -24,6 +24,7 @@ var addActivity = async (user, activity) => {
 
 var getActivity = async (user) => {
     try {
+        console.log(user);
         var result = await activityModel.findOne({user});
         //console.log("result",result);
         return result;

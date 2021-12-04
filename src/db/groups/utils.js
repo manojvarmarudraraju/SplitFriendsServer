@@ -274,5 +274,47 @@ async function updateExpense(group, expense){
     }
 }
 
+async function addMembers(group, data){
+    try{
+        var { admin, members, connections } = await groupData(group, data);
+        console.log(connections);
+        var newMembers = [...members, ...data];
+        members = [admin, ...members];
 
-module.exports = { groupData, calculateDebts, settleDebts, addExpense, listGroups, deleteGroup, addGroup, deleteExpense, updateExpense };
+        for(var i = 0; i < data.length; i++){
+            for(var j in connections){
+                connections[j][data[i]] = 0;
+            }
+        }
+        console.log(connections);
+
+        for(var i = 0; i < data.length; i++){
+            for(var j=0; j< data.length; j++){
+                if(i != j){
+                    if(!(data[i] in connections)){
+                        connections[data[i]] = {};
+                    }
+                    connections[data[i]][data[j]] = 0;
+                }
+                
+            }
+        }
+        console.log(connections);
+        for(var i=0; i< data.length; i++){
+            for(var j=0; j< members.length; j++){
+                if(!(data[i] in connections)){
+                    connections[data[i]] = {};
+                }
+                connections[data[i]][members[j]] = 0;
+            }
+        }
+        console.log(connections);
+        await groupModel.findByIdAndUpdate(group, {members: newMembers, connections: connections});
+        return [];
+    } catch(err){
+        throw err;
+    }
+}
+
+
+module.exports = { groupData, calculateDebts, settleDebts, addExpense, listGroups, deleteGroup, addGroup, deleteExpense, updateExpense, addMembers };
