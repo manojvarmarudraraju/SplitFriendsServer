@@ -9,14 +9,14 @@ var addActivity = async (user, activity) => {
         var month = date.getMonth();
         var act = {activity, timestamp: String(month)+"-"+String(dt)+"-"+String(year)};
         var result = await activityModel.find({user});
-        console.log(result);
+        //console.log(result);
         if(result.length === 0){
             await activityModel.create({user, activities: [act]});
         } else{
             await activityModel.findOneAndUpdate({user}, { "$push": {activities: act}});
         }
     } catch (err) {
-        console.log(err);
+        //console.log(err);
         throw err;
     }
 
@@ -25,7 +25,7 @@ var addActivity = async (user, activity) => {
 var getActivity = async (user) => {
     try {
         var result = await activityModel.findOne({user});
-        console.log("result",result);
+        //console.log("result",result);
         return result;
     } catch (err) {
         throw err;

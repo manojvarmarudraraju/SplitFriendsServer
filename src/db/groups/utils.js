@@ -15,10 +15,8 @@ async function groupData(group){
 async function calculateDebts(groupID,userID){
     try{
         const group = await groupData(groupID);
-        console.log(group);
+        //console.log(group);
         var {expenses} = group;
-
-        var users = {};
 
         var monthExp = {};
         var weekExp = {};
@@ -26,24 +24,12 @@ async function calculateDebts(groupID,userID){
         for(var i=0; i<expenses.length; i++){
             var expense = expenses[i];
             var ori_amount = expense.amount;
-            var { division, is_deleted } = expense;
+            var { division, is_deleted, is_payment } = expense;
             var time = expense["timestamp"];
             for(var exp in division){
-                var { lender, borrower, is_settled, amount} = division[exp];
-                console.log("lend borrow",lender, borrower, userID);
-                if(!is_deleted && !is_settled && lender === userID && borrower !== userID){
-                    if(!(borrower in users)){
-                        users[borrower] = 0;
-                    }
-                    users[borrower] += amount;
-                }
-                if(!is_deleted && !is_settled && lender !== userID && borrower === userID){
-                    if(!(lender in users)){
-                        users[lender] = 0;
-                    }
-                    users[lender] -= amount;
-                }
-                if(!is_deleted){
+                var { lender, borrower, amount} = division[exp];
+                //console.log("lend borrow",lender, borrower, userID);
+                if(!is_deleted && !is_payment){
                     if(time >= Date.now() - 604800000){
                         if(!(borrower in weekExp)){
                             weekExp[borrower] = 0;
@@ -61,11 +47,11 @@ async function calculateDebts(groupID,userID){
         }
 
         
-        var out = {debts: users, weekExp, monthExp}
-        console.log("out", out);
+        var out = {weekExp, monthExp}
+        //console.log("out", out);
         return out;
     } catch(e) {
-        console.log(e);
+        //console.log(e);
         throw e;
     }
 }
@@ -73,7 +59,7 @@ async function calculateDebts(groupID,userID){
 async function settleDebts(group, lend, borrow, money, everything = false) {
     try{
         const group_vals = await groupData(group);
-        console.log(group_vals);
+        //console.log(group_vals);
         var {expenses} = group_vals;
         expenses.sort((a, b) => a.timestamp - b.timestamp);
         if(!everything){    
@@ -122,16 +108,19 @@ async function settleDebts(group, lend, borrow, money, everything = false) {
 async function addExpense(group, expense){
     try{
         // const group_vals = await groupData(group);
-        // console.log(group_vals);
+        //console.log(group_vals);
+        var groupData = await groupModel.findById(group);
+        console.log(groupData);
+        var { connections } = groupData;
+
         expense["_id"] = new mongoose.Types.ObjectId();
-        expense["ori_amount"] = expense.amount;
         
         expense["is_deleted"] = false;
         var { division } = expense;
         for(var i=0; i< division.length; i++){
             division[i]["is_settled"] = false;
         }
-        console.log(division);
+        //console.log(division);
         var date = new Date();
         var year = date.getFullYear();
         var month = date.getMonth();
@@ -141,9 +130,20 @@ async function addExpense(group, expense){
         // var { expenses } = group_vals;
         delete expense["user"];
         // var new_expenses = [expense, ...expenses ];
+
+        for(var i=0; i<division.length; i++){
+            var { lender, borrower, amount } = division[i];
+            if(lender !== borrower){
+                connections[lender][borrower] += amount;
+                connections[borrower][lender] -= amount;
+            }
+        }
+        await groupModel.findByIdAndUpdate(group, {"connections": connections});
         await groupModel.findByIdAndUpdate(group, {"$push": { "expenses": expense}});
+
+        
         var results = await groupModel.findById(group);
-        console.log("final",results);
+        //console.log("final",results);
         return results;
     } catch(err) {
         console.log(err);
@@ -154,13 +154,15 @@ async function addExpense(group, expense){
 async function addGroup(data, id){
     var {name, members} = data;
     var connections = {};
-    for(var i = 0; i < members.length; i++){
-        for(var j = 0; j < members[i].length; j++){
+    var newMembers = [id, ...members];
+    console.log(newMembers);
+    for(var i = 0; i < newMembers.length; i++){
+        for(var j = 0; j < newMembers.length; j++){
             if(i !== j){
-                if(!(members[i] in connections)){
-                    connections[members[i]] = {};
+                if(!(newMembers[i] in connections)){
+                    connections[newMembers[i]] = {};
                 }
-                connections[members[i]][members[j]] = 0;
+                connections[newMembers[i]][newMembers[j]] = 0;
             }
         }
     };
@@ -171,7 +173,7 @@ async function addGroup(data, id){
         result = await listGroups(id);
         return result;
     } catch(err){
-        console.log(err);
+        //console.log(err);
         throw err;
     }
 }
@@ -185,18 +187,19 @@ async function listGroups(user){
             if(!(group in result)){
                 result[group] = {};
             }
-            console.log("group:",group);
-            var group_det = await groupModel.findById(group, {  name: 1, admin: 1,is_archived: 1});
-            console.log(group_det);
+            //console.log("group:",group);
+            var group_det = await groupModel.findById(group, {  name: 1, admin: 1,is_archived: 1,is_payment: 1, connections: 1});
+            //console.log(group_det);
             var debts = await calculateDebts(group, user);
-            console.log(debts);
-            var {name, admin, is_archived} = group_det;
-            result[group] = {"_id": group, name, admin, debts,is_archived};
+            //console.log(debts);
+            var {name, admin, is_archived, is_payment} = awaitgroup_det;
+            debts[debts] = connections[String(user)];
+            result[group] = {"_id": group, name, admin,is_payment, debts,is_archived};
         }
-        console.log(result);
+        //console.log(result);
         var final = [];
         for(var item in result){
-            console.log(result[item]);
+            //console.log(result[item]);
             final.push(result[item]);
         }
         return final;
@@ -216,14 +219,20 @@ async function deleteGroup(group){
 
 async function deleteExpense(group, expense_id){
     try{
-        const { expenses } = await groupData(group);
+        const { expenses, connections } = await groupData(group);
         for(var i = 0; i < expenses.length; i++){
             var expense  = expenses[i];
             if(expense["_id"] == expense_id){
                 expense["is_deleted"] = true;
             }
+            var { division } = expense;
+            for(var j = 0; j < division.length; j++){
+                var { lender, borrower, amount} = division[j];
+                connections[lender][borrower] -= amount;
+                connections[borrower][lender] += amount;
+            }
         }
-        await groupModel.findByIdAndUpdate(group, { expenses });
+        await groupModel.findByIdAndUpdate(group, { expenses, connections });
         return;
     } catch(err){
         throw err;

@@ -6,7 +6,7 @@ var {addActivity} =  require('../db/activity');
 
 
 groupRoute.use((req,res,next) => {
-    console.log("came here");
+    //console.log("came here");
     try{
         verifyJWT(req,res);
         next();
@@ -17,7 +17,7 @@ groupRoute.use((req,res,next) => {
 
 groupRoute.get("/data", async (req, res) => {   
     var id = req.body.user.user["_id"];
-    console.log(id);
+    //console.log(id);
     try{
         var result = await listGroups(id);
         return res.status(200).json({data: result});
@@ -33,7 +33,7 @@ groupRoute.get("/:groupId", async (req, res) => {
     var id = req.body.user.user["_id"];
     try{
         var result = await groupData(groupId);
-        console.log("group data");
+        //console.log("group data");
         var debts = await calculateDebts(groupId, id);
         return res.status(200).json({ data: result, debts});
     } catch(err){
@@ -46,7 +46,7 @@ groupRoute.put("/new", async(req, res) => {
     var id = req.body.user.user["_id"];
     var name = req.body.user.user["displayName"];
     var { name } = body;
-    console.log(id);
+    //console.log(id);
     try{
         var result = await addGroup(body, id);
         var val = "You created the "+name+" group";
@@ -99,7 +99,7 @@ groupRoute.put("/:groupId/expense/:expenseId", async function(req, res){
         await addActivity(id, val);
         return res.status(200).json({success: true});
     } catch(err){
-        console.log(err);
+        //console.log(err);
         return res.status(500).json({error: err});
     }
 });

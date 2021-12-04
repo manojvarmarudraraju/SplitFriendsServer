@@ -22,7 +22,7 @@ async function loginUser(user){
 }
 
 async function registerUser(user){
-    console.log(user);
+    //console.log(user);
     const { email, password, displayName } = user;
     try{
         var result = await userModel.create({email, password, displayName, groups: []});
@@ -36,7 +36,7 @@ async function registerUser(user){
 async function addGroupUser(group, members){
     try{
         var results =await userModel.updateMany({"_id": { "$in": members }}, {"$push": {"groups": group.toString()}});
-        console.log(results);
+        //console.log(results);
         // await userModel.updateMany({ "_id": { "$in": members }}, {"$push": { "members": [group]}});
     } catch(err){
         throw err
@@ -45,10 +45,10 @@ async function addGroupUser(group, members){
 async function userGroups(user){
     try{
         var val =await userModel.findById(user, {groups: 1});
-        console.log("value", val.groups);
+        //console.log("value", val.groups);
         return val.groups;
     } catch(err){
-        console.log("Error in userGroups");
+        //console.log("Error in userGroups");
         throw err;
     }
 }
