@@ -6,6 +6,7 @@ const { addActivity } = require('../activity');
 async function groupData(group){
     try{
         var results = await groupModel.findById(group);
+        console.log(results);
         return results;
     } catch(err){
         throw err;
@@ -169,8 +170,10 @@ async function addGroup(data, id){
 
     try{
         var result = await groupModel.create({name, admin: id, members, expenses: [],is_archived: false, connections});
+        console.log("connections", result.connections);
         await addGroupUser(result["_id"], [id, ...members]);
         result = await listGroups(id);
+        console.log(result);
         return result;
     } catch(err){
         //console.log(err);
@@ -220,7 +223,7 @@ async function deleteGroup(group){
 
 async function deleteExpense(group, expense_id){
     try{
-        const { expenses, connections } = await groupData(group);
+        var { expenses, connections } = await groupData(group);
         for(var i = 0; i < expenses.length; i++){
             var expense  = expenses[i];
             if(expense["_id"] == expense_id){
@@ -233,6 +236,7 @@ async function deleteExpense(group, expense_id){
                 connections[borrower][lender] += amount;
             }
         }
+        console.log(connections);
         await groupModel.findByIdAndUpdate(group, { expenses, connections });
         return;
     } catch(err){
