@@ -6,7 +6,20 @@ const { addActivity } = require('../activity');
 async function groupData(group){
     try{
         var results = await groupModel.findById(group);
-        console.log(results);
+        // console.log(results);
+        var { expenses } = results;
+        var dummy1 = [];
+        var dummy2 = [];
+        for(var i=0; i<expenses.length; i++){
+            var { is_deleted } = expenses[i];
+            if(is_deleted){
+                dummy2.push(expenses[i]);
+            }else{
+                dummy1.push(expenses[i]);
+            }
+        }
+        results["expenses"] = [...dummy1, ...dummy2];
+
         return results;
     } catch(err){
         throw err;
@@ -135,8 +148,8 @@ async function addExpense(group, expense){
         for(var i=0; i<division.length; i++){
             var { lender, borrower, amount } = division[i];
             if(lender !== borrower){
-                connections[lender][borrower] += amount;
-                connections[borrower][lender] -= amount;
+                connections[lender][borrower] = parseInt(connections[lender][borrower],10) + parseInt(amount,10);
+                connections[borrower][lender] = parseInt(connections[borrower][lender],10) - parseInt(amount,10);
             }
         }
         await groupModel.findByIdAndUpdate(group, {"connections": connections});
@@ -156,7 +169,7 @@ async function addGroup(data, id){
     var {name, members} = data;
     var connections = {};
     var newMembers = [id, ...members];
-    console.log(newMembers);
+    // console.log(newMembers);
     for(var i = 0; i < newMembers.length; i++){
         for(var j = 0; j < newMembers.length; j++){
             if(i !== j){
@@ -170,10 +183,10 @@ async function addGroup(data, id){
 
     try{
         var result = await groupModel.create({name, admin: id, members, expenses: [],is_archived: false, connections});
-        console.log("connections", result.connections);
+        // console.log("connections", result.connections);
         await addGroupUser(result["_id"], [id, ...members]);
         result = await listGroups(id);
-        console.log(result);
+        // console.log(result);
         return result;
     } catch(err){
         //console.log(err);
@@ -228,12 +241,14 @@ async function deleteExpense(group, expense_id){
             var expense  = expenses[i];
             if(expense["_id"] == expense_id){
                 expense["is_deleted"] = true;
-            }
-            var { division } = expense;
-            for(var j = 0; j < division.length; j++){
-                var { lender, borrower, amount} = division[j];
-                connections[lender][borrower] -= amount;
-                connections[borrower][lender] += amount;
+                var { division } = expense;
+                for(var j = 0; j < division.length; j++){
+                    var { lender, borrower, amount} = division[j];
+                    if(lender !== borrower){
+                        connections[lender][borrower] = parseInt(connections[lender][borrower],10) - parseInt(amount,10);
+                        connections[borrower][lender] = parseInt(connections[borrower][lender],10) + parseInt(amount,10);
+                    }
+                }
             }
         }
         console.log(connections);
