@@ -192,8 +192,8 @@ async function listGroups(user){
             //console.log(group_det);
             var debts = await calculateDebts(group, user);
             //console.log(debts);
-            var {name, admin, is_archived, is_payment} = awaitgroup_det;
-            debts[debts] = connections[String(user)];
+            var {name, admin, is_archived, is_payment, connections} = group_det;
+            debts["debts"] = connections[String(user)];
             result[group] = {"_id": group, name, admin,is_payment, debts,is_archived};
         }
         //console.log(result);
@@ -204,6 +204,7 @@ async function listGroups(user){
         }
         return final;
     } catch(err){
+        console.log(err);
         throw err;
     }
 }
