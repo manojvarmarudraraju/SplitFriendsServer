@@ -35,6 +35,7 @@ groupRoute.get("/:groupId", async (req, res) => {
         var result = await groupData(groupId);
         //console.log("group data");
         var debts = await calculateDebts(groupId, id);
+        debts[debts] = result.connections;
         return res.status(200).json({ data: result, debts});
     } catch(err){
         return res.status(500).json({error: err});
