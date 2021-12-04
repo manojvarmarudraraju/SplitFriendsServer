@@ -1332,3 +1332,22 @@
 2021-12-03 18:33:05:335 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src app.js Server listening on port 8080
 2021-12-03 18:33:06:336 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
 2021-12-03 18:33:09:339 info: GET /group/data 200 262.157 ms - 404
+2021-12-03 18:34:46:3446 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src app.js Server listening on port 8080
+2021-12-03 18:34:47:3447 info: D:\UTD\Fall2021\WebProgrammingLanguages\FinalProject\Server\src\db MongoConnection.js Connected to Mongo
+2021-12-03 18:34:51:3451 info: OPTIONS /group/data 204 1.301 ms - 0
+2021-12-03 18:34:51:3451 info: GET /group/data 200 245.208 ms - 404
+2021-12-03 18:35:59:3559 info: OPTIONS /group/61aab62c94fca3342a448af8 204 0.412 ms - 0
+2021-12-03 18:35:59:3559 info: OPTIONS /group/61aab62c94fca3342a448af8 204 0.151 ms - 0
+2021-12-03 18:35:59:3559 info: OPTIONS /group/61aab62c94fca3342a448af8 204 0.303 ms - 0
+2021-12-03 18:35:59:3559 info: OPTIONS /group/61aab62c94fca3342a448af8 204 0.112 ms - 0
+2021-12-03 18:35:59:3559 info: GET /group/61aab62c94fca3342a448af8 200 92.872 ms - 480
+2021-12-03 18:35:59:3559 info: GET /group/61aab62c94fca3342a448af8 304 95.841 ms - -
+2021-12-03 18:35:59:3559 info: GET /group/61aab62c94fca3342a448af8 304 101.779 ms - -
+2021-12-03 18:35:59:3559 info: GET /group/61aab62c94fca3342a448af8 304 91.443 ms - -
+2021-12-03 18:36:35:3635 info: OPTIONS /group/61aab62c94fca3342a448af8 204 0.101 ms - 0
+2021-12-03 18:36:35:3635 info: OPTIONS /group/61aab62c94fca3342a448af8 204 0.189 ms - 0
+2021-12-03 18:36:35:3635 info: GET /group/61aab62c94fca3342a448af8 304 93.405 ms - -
+2021-12-03 18:36:35:3635 info: GET /group/61aab62c94fca3342a448af8 304 97.573 ms - -
+2021-12-03 18:36:35:3635 info: GET /group/61aab62c94fca3342a448af8 304 93.248 ms - -
+2021-12-03 18:36:35:3635 info: GET /group/61aab62c94fca3342a448af8 304 92.777 ms - -
+2021-12-03 18:38:04:384 info: GET /group/61aab62c94fca3342a448af8 403 5.404 ms - 101
