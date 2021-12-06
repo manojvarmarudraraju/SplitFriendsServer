@@ -15,13 +15,9 @@ async function loginUser(user){
         await bcrypt.compare(password, result.password);
         result = await userModel.findOne({email},{password: 0});
         var users = await userModel.find({}, {password:0});
-        var dummy = users.map(function(user){
-            delete user["password"];
-            return user;
-        })
         var out = {};
         out.user = result;
-        out.users = dummy;
+        out.users = users;
         return out;
     } catch(err){
         throw err;
@@ -34,8 +30,7 @@ async function registerUser(user){
     try{
         var hash =await bcrypt.hash(password, saltRounds);
         var result = await userModel.create({email, password: hash, displayName, groups: []});
-        delete result["password"];
-        return result;
+        return [];
     } catch(err){
         throw err;
     }
